@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -23,6 +24,7 @@ const Home = () => {
   const [index, setIndex] = useState(0);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
@@ -30,8 +32,8 @@ const Home = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       try {
-        // Cargar PapaParse dinámicamente
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js';
         script.async = true;
@@ -53,15 +55,14 @@ const Home = () => {
                     throw new Error('No se encontraron productos en el Google Sheet.');
                   }
 
-                  // Convertir datos a formato de productos
                   const formattedProducts = data.map((item) => ({
                     id: item.ID || '',
                     title: item.Title || 'Sin título',
                     images: item.Images ? item.Images.replace(/\n/g, '').split(',').filter((img) => img.trim()) : ['https://via.placeholder.com/300x200'],
                   }));
 
-                  // Tomar los últimos 4 productos
                   setProducts(formattedProducts.slice(-4).reverse());
+                  setIsLoading(false);
                 },
                 error: (error) => {
                   throw new Error('Error al parsear el CSV: ' + error);
@@ -79,17 +80,22 @@ const Home = () => {
       } catch (error) {
         console.error('Error fetching products:', error);
         setError(error.message);
+        setIsLoading(false);
       }
     };
 
     fetchProducts();
 
-    // Limpieza del script al desmontar
     return () => {
       const scripts = document.querySelectorAll('script[src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"]');
       scripts.forEach((script) => script.remove());
     };
   }, []);
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
 
   return (
     <>
@@ -136,7 +142,12 @@ const Home = () => {
 
       <main>
         {/* Carousel */}
-        <section className="carousel-section">
+        <motion.section
+          className="carousel-section"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <Carousel activeIndex={index} onSelect={handleSelect} interval={1500} controls={false}>
             <Carousel.Item>
               <picture>
@@ -157,10 +168,15 @@ const Home = () => {
               </picture>
             </Carousel.Item>
           </Carousel>
-        </section>
+        </motion.section>
 
         {/* Welcome Message */}
-        <section className="welcome-section text-center py-5">
+        <motion.section
+          className="welcome-section text-center py-5"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <p className="welcome-text">
               BIENVENIDO<br />
@@ -169,37 +185,61 @@ const Home = () => {
               náutica.
             </p>
           </div>
-        </section>
+        </motion.section>
 
         {/* Banners Section */}
-        <section className="banners-section py-5">
+        <motion.section
+          className="banners-section py-5"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container-fluid p-0">
             <div className="row g-0">
               <div className="col-lg-3 col-md-6 col-12 mb-4 text-center">
-                <img src={bannerCruceros} className="banner-img img-fluid" alt="Cruceros náuticos en venta" />
-                <h3 className="banner-title mt-3">CRUCEROS</h3>
+                <Link to="/productos?category=cruceros" className="text-decoration-none">
+                  <img src={bannerCruceros} className="banner-img img-fluid" alt="Cruceros náuticos en venta" />
+                  <h3 className="banner-title mt-3">CRUCEROS</h3>
+                </Link>
               </div>
               <div className="col-lg-3 col-md-6 col-12 mb-4 text-center">
-                <img src={bannerLanchas} className="banner-img img-fluid" alt="Lanchas náuticas en venta" />
-                <h3 className="banner-title mt-3">LANCHAS</h3>
+                <Link to="/productos?category=lanchas" className="text-decoration-none">
+                  <img src={bannerLanchas} className="banner-img img-fluid" alt="Lanchas náuticas en venta" />
+                  <h3 className="banner-title mt-3">LANCHAS</h3>
+                </Link>
               </div>
               <div className="col-lg-3 col-md-6 col-12 mb-4 text-center">
-                <img src={bannerMotos} className="banner-img img-fluid" alt="Motos acuáticas en venta" />
-                <h3 className="banner-title mt-3">MOTOS</h3>
+                <Link to="/productos?category=motos" className="text-decoration-none">
+                  <img src={bannerMotos} className="banner-img img-fluid" alt="Motos acuáticas en venta" />
+                  <h3 className="banner-title mt-3">MOTOS</h3>
+                </Link>
               </div>
               <div className="col-lg-3 col-md-6 col-12 mb-4 text-center">
-                <img src={bannerAccesorios} className="banner-img img-fluid" alt="Accesorios náuticos" />
-                <h3 className="banner-title mt-3">ACCESORIOS</h3>
+                <Link to="/productos?category=accesorios" className="text-decoration-none">
+                  <img src={bannerAccesorios} className="banner-img img-fluid" alt="Accesorios náuticos" />
+                  <h3 className="banner-title mt-3">ACCESORIOS</h3>
+                </Link>
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* Últimos Ingresos */}
-        <section className="latest-arrivals py-5">
+        <motion.section
+          className="latest-arrivals py-5"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <h2 className="text-center mb-4">Últimos ingresos</h2>
-            {error ? (
+            {isLoading ? (
+              <div className="text-center">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Cargando...</span>
+                </div>
+              </div>
+            ) : error ? (
               <div className="alert alert-danger text-center">
                 Error al cargar los productos: {error}. Por favor, verifica el Google Sheet.
               </div>
@@ -229,10 +269,15 @@ const Home = () => {
               </div>
             )}
           </div>
-        </section>
+        </motion.section>
 
         {/* Services Section */}
-        <section className="services-section py-5">
+        <motion.section
+          className="services-section py-5"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <div className="row text-center">
               <div className="col-lg-3 col-md-6 col-6 mb-4">
@@ -261,10 +306,15 @@ const Home = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* YouTube Video */}
-        <section className="video-section">
+        <motion.section
+          className="video-section"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container-fluid p-0">
             <div className="video-wrapper">
               <iframe
@@ -274,7 +324,7 @@ const Home = () => {
               ></iframe>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />

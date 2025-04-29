@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -22,10 +23,15 @@ const Contacto = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes conectar con EmailJS o un backend
     setFormStatus('Mensaje enviado con éxito');
     setFormData({ name: '', email: '', phone: '', message: '' });
     setTimeout(() => setFormStatus(''), 3000);
+  };
+
+  // Animaciones para secciones
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
   return (
@@ -42,7 +48,10 @@ const Contacto = () => {
         />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Pasión por la Náutica" />
-        <meta property="og:title" content="Pasión por la Náutica - Contacto y Consultas Náuticas" />
+        <meta
+          property="og:title"
+          content="Pasión por la Náutica - Contacto y Consultas Náuticas"
+        />
         <meta
           property="og:description"
           content="Contáctanos en Pasión por la Náutica para consultas sobre embarcaciones, servicios y más. Estamos en San Fernando, Buenos Aires. ¡Llámanos o envía un mensaje!"
@@ -51,11 +60,14 @@ const Contacto = () => {
           property="og:image"
           content="https://www.pasionporlanautica.com/assets/img/pasion-por-la-nautica.png"
         />
-        <meta property="og:url" content="https://www.pasionporlanautica.com/contacto.html" />
+        <meta property="og:url" content="https://www.pasionporlanautica.com/contacto" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="es_AR" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pasión por la Náutica - Contacto y Consultas Náuticas" />
+        <meta
+          name="twitter:title"
+          content="Pasión por la Náutica - Contacto y Consultas Náuticas"
+        />
         <meta
           name="twitter:description"
           content="Contáctanos en Pasión por la Náutica para consultas sobre embarcaciones, servicios y más. Estamos en San Fernando, Buenos Aires. ¡Llámanos o envía un mensaje!"
@@ -64,7 +76,7 @@ const Contacto = () => {
           name="twitter:image"
           content="https://www.pasionporlanautica.com/assets/img/pasion-por-la-nautica.png"
         />
-        <link rel="canonical" href="https://www.pasionporlanautica.com/contacto.html" />
+        <link rel="canonical" href="https://www.pasionporlanautica.com/contacto" />
         <link rel="icon" type="image/png" href="/assets/img/pasionporlanauticafavicon.png" />
         <link rel="apple-touch-icon" href="/assets/img/pasionporlanauticafavicon.png" />
       </Helmet>
@@ -72,14 +84,25 @@ const Contacto = () => {
       <Header />
 
       <main>
-        <section className="hero-section py-5 text-center" style={{ backgroundColor: '#01497C', color: '#fff' }}>
+        <motion.section
+          className="hero-section py-5 text-center"
+          style={{ backgroundColor: '#01497C', color: '#fff' }}
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <h1 className="display-4 font-weight-bold">Contáctame</h1>
             <p className="lead">Estoy aquí para ayudarte con cualquier consulta náutica.</p>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="contact-section py-5">
+        <motion.section
+          className="contact-section py-5"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <div className="row">
               <div className="col-lg-6 col-md-12 mb-4 mb-lg-0">
@@ -203,7 +226,7 @@ const Contacto = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />

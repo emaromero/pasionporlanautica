@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Carousel } from 'react-bootstrap';
+import { useSearchParams } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -9,22 +11,31 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 
 const Productos = () => {
-  const [category, setCategory] = useState('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const validCategories = ['all', 'cruceros', 'lanchas', 'motos', 'accesorios'];
+  const initialCategory = validCategories.includes(searchParams.get('category')?.toLowerCase())
+    ? searchParams.get('category').toLowerCase()
+    : 'all';
+  const [category, setCategory] = useState(initialCategory);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const filteredProducts = category === 'all' ? products : products.filter((product) => product.category.toLowerCase() === category);
 
   const handleCategoryChange = (newCategory) => {
-    setCategory(newCategory);
-    setSelectedProduct(null);
+    if (validCategories.includes(newCategory)) {
+      setCategory(newCategory);
+      setSelectedProduct(null);
+      setSearchParams({ category: newCategory });
+    }
   };
 
   useEffect(() => {
     const fetchProducts = async () => {
+      setIsLoading(true);
       try {
-        // Load PapaParse dynamically
         const script = document.createElement('script');
         script.src = 'https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js';
         script.async = true;
@@ -46,7 +57,6 @@ const Productos = () => {
                     throw new Error('No se encontraron productos en el Google Sheet.');
                   }
 
-                  // Convert data to match HTML/main.js format
                   const formattedProducts = data.map((item) => ({
                     id: item.ID || '',
                     title: item.Title || 'Sin título',
@@ -69,6 +79,20 @@ const Productos = () => {
                   }));
 
                   setProducts(formattedProducts);
+
+                  const productId = searchParams.get('id');
+                  if (productId) {
+                    const product = formattedProducts.find((p) => p.id === productId);
+                    if (product && validCategories.includes(product.category.toLowerCase())) {
+                      setSelectedProduct(product);
+                      setCategory(product.category.toLowerCase());
+                      setSearchParams({ category: product.category.toLowerCase(), id: productId });
+                    } else {
+                      setError('Producto no encontrado.');
+                      setSearchParams({ category: 'all' });
+                    }
+                  }
+                  setIsLoading(false);
                 },
                 error: (error) => {
                   throw new Error('Error al parsear el CSV: ' + error);
@@ -86,24 +110,28 @@ const Productos = () => {
       } catch (error) {
         console.error('Error fetching products:', error);
         setError(error.message);
+        setIsLoading(false);
       }
     };
 
     fetchProducts();
 
-    // Cleanup script on unmount
     return () => {
       const scripts = document.querySelectorAll('script[src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"]');
       scripts.forEach((script) => script.remove());
     };
-  }, []);
+  }, [searchParams, setSearchParams]);
+
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
 
   const renderProductDetails = (product) => {
     const similarProducts = products
       .filter((p) => p.category === product.category && p.id !== product.id)
       .slice(0, 3);
 
-    // Format description with HTML (e.g., convert newlines to <br>, bullet points to <li>)
     let descriptionHTML = (product.description || '')
       .replace(/<br>/g, '<br>')
       .replace(/\n/g, '<br>')
@@ -113,7 +141,13 @@ const Productos = () => {
     }
 
     return (
-      <section className="product-details py-5" id="productDetails">
+      <motion.section
+        className="product-details py-5"
+        id="productDetails"
+        variants={sectionVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="container">
           <button className="btn btn-secondary mb-4" onClick={() => setSelectedProduct(null)}>
             Volver a Productos
@@ -207,7 +241,7 @@ const Productos = () => {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
     );
   };
 
@@ -234,7 +268,7 @@ const Productos = () => {
           property="og:image"
           content="https://www.pasionporlanautica.com/assets/img/pasion-por-la-nautica.png"
         />
-        <meta property="og:url" content="https://www.pasionporlanautica.com/productos.html" />
+        <meta property="og:url" content="https://www.pasionporlanautica.com/productos" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="es_AR" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -247,7 +281,7 @@ const Productos = () => {
           name="twitter:image"
           content="https://www.pasionporlanautica.com/assets/img/pasion-por-la-nautica.png"
         />
-        <link rel="canonical" href="https://www.pasionporlanautica.com/productos.html" />
+        <link rel="canonical" href="https://www.pasionporlanautica.com/productos" />
         <link rel="icon" type="image/png" href="/assets/img/pasionporlanauticafavicon.png" />
         <link rel="apple-touch-icon" href="/assets/img/pasionporlanauticafavicon.png" />
       </Helmet>
@@ -255,14 +289,25 @@ const Productos = () => {
       <Header />
 
       <main>
-        <section className="hero-section py-5 text-center" style={{ backgroundColor: '#01497C', color: '#fff' }}>
+        <motion.section
+          className="hero-section py-5 text-center"
+          style={{ backgroundColor: '#01497C', color: '#fff' }}
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <h1 className="display-4 font-weight-bold">Nuestros Productos</h1>
             <p className="lead">Explora nuestra selección de cruceros, lanchas, motos y accesorios náuticos.</p>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="filter-section py-4">
+        <motion.section
+          className="filter-section py-4"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container text-center">
             <div className="filter-buttons">
               <button
@@ -297,20 +342,43 @@ const Productos = () => {
               </button>
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        {error ? (
-          <section className="products-section py-5">
+        {isLoading ? (
+          <motion.section
+            className="products-section py-5"
+            variants={sectionVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <div className="container text-center">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+          </motion.section>
+        ) : error ? (
+          <motion.section
+            className="products-section py-5"
+            variants={sectionVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <div className="container">
               <div className="alert alert-danger text-center">
                 Error al cargar los productos: {error}. Por favor, verifica el Google Sheet.
               </div>
             </div>
-          </section>
+          </motion.section>
         ) : selectedProduct ? (
           renderProductDetails(selectedProduct)
         ) : (
-          <section className="products-section py-5">
+          <motion.section
+            className="products-section py-5"
+            variants={sectionVariants}
+            initial="hidden"
+            animate="visible"
+          >
             <div className="container">
               <div className="row" id="productsGrid">
                 {filteredProducts.map((product) => (
@@ -340,7 +408,7 @@ const Productos = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </motion.section>
         )}
 
         {/* Image Modal */}

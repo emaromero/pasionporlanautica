@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import WhatsAppButton from '../components/WhatsAppButton';
@@ -8,6 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 
 const QuienSoy = () => {
+  // Animaciones para secciones
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
   return (
     <>
       <Helmet>
@@ -22,7 +29,10 @@ const QuienSoy = () => {
         />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="Pasión por la Náutica" />
-        <meta property="og:title" content="Pasión por la Náutica - Sobre Nosotros y Nuestra Experiencia" />
+        <meta
+          property="og:title"
+          content="Pasión por la Náutica - Sobre Nosotros y Nuestra Experiencia"
+        />
         <meta
           property="og:description"
           content="Conoce a Pasión por la Náutica: más de 40 años de experiencia en náutica, ofreciendo venta y servicios de embarcaciones en San Fernando, Buenos Aires."
@@ -31,11 +41,17 @@ const QuienSoy = () => {
           property="og:image"
           content="https://www.pasionporlanautica.com/assets/img/pasion-por-la-nautica.png"
         />
-        <meta property="og:url" content="https://www.pasionporlanautica.com/quien-soy.html" />
+        <meta property="og:url" content="https://www.pasionporlanautica.com/quien-soy" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="es_AR" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pasión por la Náutica - Sobre Nosotros y Nuestra Experiencia" />
+        <meta
+          name="twitter:card"
+          content="summary_large_image"
+        />
+        <meta
+          name="twitter:title"
+          content="Pasión por la Náutica - Sobre Nosotros y Nuestra Experiencia"
+        />
         <meta
           name="twitter:description"
           content="Conoce a Pasión por la Náutica: más de 40 años de experiencia en náutica, ofreciendo venta y servicios de embarcaciones en San Fernando, Buenos Aires."
@@ -44,7 +60,7 @@ const QuienSoy = () => {
           name="twitter:image"
           content="https://www.pasionporlanautica.com/assets/img/pasion-por-la-nautica.png"
         />
-        <link rel="canonical" href="https://www.pasionporlanautica.com/quien-soy.html" />
+        <link rel="canonical" href="https://www.pasionporlanautica.com/quien-soy" />
         <link rel="icon" type="image/png" href="/assets/img/pasionporlanauticafavicon.png" />
         <link rel="apple-touch-icon" href="/assets/img/pasionporlanauticafavicon.png" />
       </Helmet>
@@ -52,13 +68,24 @@ const QuienSoy = () => {
       <Header />
 
       <main>
-        <section className="hero-section py-5 text-center" style={{ backgroundColor: '#01497C', color: '#fff' }}>
+        <motion.section
+          className="hero-section py-5 text-center"
+          style={{ backgroundColor: '#01497C', color: '#fff' }}
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <p className="lead">Conoce la pasión y experiencia detrás de Pasión por la Náutica.</p>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="about-section py-5">
+        <motion.section
+          className="about-section py-5"
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <div className="row align-items-center">
               <div className="col-lg-6 col-md-12 mb-4 mb-lg-0">
@@ -91,9 +118,15 @@ const QuienSoy = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        <section className="experience-section py-5" style={{ backgroundColor: '#f8f9fa' }}>
+        <motion.section
+          className="experience-section py-5"
+          style={{ backgroundColor: '#f8f9fa' }}
+          variants={sectionVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <div className="container">
             <h2 className="text-center mb-5">Mi Experiencia</h2>
             <div className="row text-center">
@@ -117,7 +150,7 @@ const QuienSoy = () => {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       </main>
 
       <Footer />
