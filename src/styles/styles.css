@@ -1,0 +1,828 @@
+/* General Styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #fff;
+  color: #666;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+}
+
+main {
+  flex: 1 0 auto; /* Hace que el main crezca para llenar el espacio disponible */
+}
+
+footer {
+  flex-shrink: 0; /* Evita que el footer se encoja */
+}
+
+/* Header */
+header {
+  background-color: #fff;
+}
+
+.navbar-nav .nav-link {
+  color: #666;
+  font-weight: 300;
+  padding: 10px 20px;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #279CB9;
+}
+
+.navbar-nav .nav-link.active {
+  color: #01497C;
+  font-weight: 700;
+}
+
+.navbar-nav .nav-link.active-link {
+  color: #01497C !important;
+  font-weight: 700 !important;
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 73, 124, 0.8)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Carousel (index.html) */
+.carousel-section {
+  margin-bottom: 2rem;
+}
+
+.carousel {
+  height: auto; /* Permitir altura dinámica */
+}
+
+.carousel-inner {
+  height: auto; /* Permitir altura dinámica */
+}
+
+.carousel-img {
+  object-fit: cover;
+  width: 100%;
+  height: 750px; /* Altura por defecto, se sobrescribe en PC */
+}
+
+/* Ocultar botones de navegación para index.html */
+.carousel-section .carousel-control-prev,
+.carousel-section .carousel-control-next {
+  display: none; /* Oculta los botones SVG prev y next */
+}
+
+/* Ajustes para pantallas de PC (min-width: 768px) */
+@media (min-width: 768px) {
+  .carousel-img {
+    height: auto; /* La altura se basa en la imagen */
+    max-height: none; /* Sin restricción de altura máxima */
+    animation: zoomInOut 3s ease-in-out infinite; /* Animación cíclica de zoom in/out */
+  }
+}
+
+/* Ajustes para pantallas móviles (max-width: 767px) */
+@media (max-width: 767px) {
+  .carousel-img {
+    height: 500px; /* Mantener altura fija en móviles */
+  }
+}
+
+/* Animación de zoom in y zoom out para PC */
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1); /* Zoom in al 110% */
+  }
+  100% {
+    transform: scale(1); /* Zoom out al tamaño original */
+  }
+}
+
+/* Welcome Section */
+.welcome-section {
+  background-color: #01497C;
+  color: #fff;
+}
+
+.welcome-text {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Banners Section */
+.banners-section {
+  background-color: #fff;
+}
+
+.banner-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 0;
+  transition: transform 0.3s;
+  display: block;
+}
+
+.banner-img:hover {
+  transform: scale(1.05);
+}
+
+.banner-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #01497C;
+  text-transform: uppercase;
+  margin: 1rem 0;
+}
+
+/* Latest Arrivals */
+.latest-arrivals h2 {
+  color: #01497C;
+  font-weight: 700;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  font-weight: 700;
+}
+
+.card-text {
+  font-weight: 300;
+}
+
+/* Services Section */
+.services-section {
+  background-color: #fff;
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.service-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #01497C;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Video Section */
+.video-section {
+  padding: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* Relación de aspecto 16:9 (9/16 = 0.5625) */
+  height: 0; /* Evita espacio adicional */
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .video-wrapper {
+    padding-top: 56.25%; /* Mantiene la relación de aspecto en móvil */
+  }
+}
+
+/* Hero Section */
+.hero-section {
+  background-color: #01497C;
+  color: #fff;
+}
+
+.hero-section h1 {
+  font-weight: 700;
+}
+
+.hero-section .lead {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+/* About Section (Quién Soy) */
+.about-section {
+  background-color: #fff;
+}
+
+.about-section h2 {
+  color: #01497C;
+  font-weight: 700;
+}
+
+.about-section p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.about-section .btn-primary {
+  background-color: #01497C;
+  border: none;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.about-section .btn-primary:hover {
+  background-color: #279CB9;
+}
+
+/* Experience Section (Quién Soy) */
+.experience-section {
+  background-color: #f8f9fa;
+}
+
+.experience-section h2 {
+  color: #01497C;
+  font-weight: 700;
+}
+
+.experience-item {
+  padding: 20px;
+}
+
+.experience-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #01497C;
+  margin-bottom: 0.5rem;
+}
+
+.experience-item p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Contact Section */
+.contact-section {
+  background-color: #fff;
+}
+
+.contact-section h2 {
+  color: #01497C;
+  font-weight: 700;
+}
+
+.contact-info li {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.contact-info .contact-link {
+  color: #01497C;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contact-info .contact-link:hover {
+  color: #279CB9;
+}
+
+.contact-form .form-label {
+  font-weight: 700;
+  color: #01497C;
+}
+
+.contact-form .form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.contact-form .form-control:focus {
+  border-color: #01497C;
+  box-shadow: 0 0 5px rgba(1, 73, 124, 0.3);
+  outline: none;
+}
+
+.contact-form .btn-primary {
+  background-color: #01497C;
+  border: none;
+  padding: 10px 20px;
+  transition: background-color 0.3s;
+}
+
+.contact-form .btn-primary:hover {
+  background-color: #279CB9;
+}
+
+.contact-form .btn-primary:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.contact-form .alert {
+  font-size: 0.9rem;
+  padding: 10px;
+}
+
+/* Toast Styles */
+.toast-container {
+  z-index: 1055;
+}
+
+.toast.bg-primary {
+  background-color: #01497C !important;
+  border-color: #279CB9 !important;
+}
+
+.toast.bg-primary .toast-body {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.toast.bg-primary .btn-close-white {
+  filter: invert(1);
+}
+
+/* Products Section */
+.products-section h2 {
+  color: #01497C;
+  font-weight: 700;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-buttons .btn {
+  margin: 5px;
+  background-color: #01497C;
+  border-color: #01497C;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  font-weight: 300;
+}
+
+.filter-buttons .btn:hover {
+  background-color: #279CB9;
+  border-color: #279CB9;
+}
+
+/* Product Cards */
+.product-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  height: 350px; /* Altura fija para todas las cards */
+  display: flex;
+  flex-direction: column;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card .card-img-top {
+  height: 250px; /* Altura fija para las imágenes */
+  object-fit: cover;
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.product-card .img-primary {
+  opacity: 1;
+}
+
+.product-card .img-secondary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  opacity: 0;
+}
+
+.product-card:hover .img-primary {
+  opacity: 0;
+}
+
+.product-card:hover .img-secondary {
+  opacity: 1;
+}
+
+.product-card .card-body {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1; /* Asegura que el título esté sobre las imágenes */
+  padding: 10px;
+}
+
+.product-card .card-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #01497C;
+  margin: 0;
+  max-width: 100%;
+  text-align: center;
+  white-space: normal; /* Permite múltiples líneas */
+}
+
+/* Product Details */
+.product-details .product-image-container {
+  max-height: 500px;
+}
+
+.product-details .product-image-container .carousel-item img {
+  max-height: 500px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.product-details .btn-whatsapp {
+  background-color: #25D366;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.product-details .btn-whatsapp:hover {
+  background-color: #1EBE55;
+}
+
+/* Modal for Images */
+.modal-xl {
+  max-width: 90%;
+}
+
+.modal-body .carousel-inner img {
+  max-height: 80vh;
+  object-fit: contain;
+  background: #000; /* Fondo negro para imágenes con transparencias */
+}
+
+.modal-content.bg-dark {
+  border: none;
+}
+
+.modal-content.bg-dark .modal-title {
+  color: #fff;
+}
+
+.modal-content.bg-dark .btn-close-white {
+  filter: invert(1);
+}
+
+.carousel-control-prev, .carousel-control-next {
+  width: 5%;
+}
+
+/* Works Section (Nuestros Trabajos) */
+.works-section {
+  background-color: #fff;
+}
+
+.work-item {
+  margin-bottom: 3rem;
+}
+
+.work-img {
+  width: 100%;
+  height: auto; /* Permitir altura dinámica */
+  object-fit: cover;
+  aspect-ratio: 4/3; /* Forzar relación de aspecto 4:3 */
+}
+
+.work-title {
+  color: #01497C;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.work-text {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* Carousel Customization for Works Section */
+.works-section .carousel {
+  position: relative;
+  overflow: hidden;
+  background-color: #f0f0f0; /* Fondo gris claro mientras las imágenes cargan */
+}
+
+.works-section .carousel-inner {
+  position: relative;
+  height: auto; /* Altura dinámica para adaptarse a la imagen */
+}
+
+.works-section .carousel-item {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.works-section .carousel-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 4/3; /* Forzar relación de aspecto 4:3 */
+}
+
+.works-section .carousel-control-prev,
+.works-section .carousel-control-next {
+  width: 10%;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.works-section .carousel-control-prev:hover,
+.works-section .carousel-control-next:hover {
+  opacity: 1;
+}
+
+.works-section .carousel-control-prev-icon,
+.works-section .carousel-control-next-icon {
+  background-size: 100%, 100%;
+  width: 30px;
+  height: 30px;
+}
+
+@media (max-width: 767px) {
+  .work-item {
+    flex-direction: column !important; /* Fuerza la dirección vertical en móviles */
+  }
+
+  .work-img {
+    height: 300px; /* Altura fija en móviles */
+    max-height: 300px;
+    aspect-ratio: 4/3; /* Mantener relación de aspecto */
+  }
+
+  .works-section .carousel-inner {
+    height: 300px; /* Altura fija en móviles */
+  }
+
+  .work-title,
+  .work-text {
+    text-align: center;
+  }
+
+  .works-section .carousel-control-prev,
+  .works-section .carousel-control-next {
+    width: 15%; /* Más ancho en móviles para facilitar el clic */
+  }
+}
+
+/* Footer */
+.footer-top {
+  background-color: #01497C;
+  color: #fff;
+  margin-bottom: 0 !important;
+  margin-top: 15px;
+}
+
+.footer-bottom {
+  background-color: #01497C;
+  color: #fff;
+  font-size: 0.7rem;
+  margin-bottom: 0 !important;
+}
+
+.footer-bottom-text {
+  display: inline-block;
+  text-align: center;
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.footer-subtitle {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.footer-heading {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+  font-weight: 700;
+}
+
+.footer-link {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 300;
+}
+
+.footer-link:hover {
+  color: #279CB9;
+}
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.social-link {
+  color: #fff;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.social-link:hover {
+  color: #279CB9;
+}
+
+/* WhatsApp Floating Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25D366; /* Color verde de WhatsApp */
+  color: #fff;
+  height: 50px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px 0 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: transform 0.3s, background-color 0.3s;
+  text-decoration: none; /* Quita el subrayado */
+}
+
+.whatsapp-float i {
+  font-size: 2rem;
+  margin-right: 8px;
+}
+
+.whatsapp-float .whatsapp-text {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #fff;
+}
+
+.whatsapp-float:hover {
+  transform: scale(1.05);
+  background-color: #20b358; /* Verde más oscuro al hacer hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .carousel-img {
+    height: 500px;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    padding: 10px 0; /* Ajustar el padding para que sea más compacto */
+  }
+
+  .footer-bottom-text {
+    display: inline; /* Cambiar a inline para que el texto fluya en una sola línea */
+    font-size: 0.65rem; /* Reducir ligeramente el tamaño de la fuente para que quepa mejor */
+    line-height: 1.2; /* Ajustar el interlineado */
+    white-space: normal; /* Permitir que el texto se ajuste al ancho disponible */
+  }
+
+  .footer-bottom-text::before,
+  .footer-bottom-text::after {
+    content: none; /* No insertar contenido adicional */
+  }
+
+  .footer-bottom-text a {
+    display: inline; /* Mantener el enlace inline */
+  }
+
+  .about-section img {
+    max-height: 300px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  .experience-number {
+    font-size: 2rem;
+  }
+
+  .contact-info li {
+    font-size: 0.9rem;
+  }
+
+  .whatsapp-float {
+    height: 40px;
+    padding: 0 10px 0 8px;
+    border-radius: 20px;
+    bottom: 15px;
+    right: 15px;
+  }
+
+  .whatsapp-float i {
+    font-size: 1.5rem;
+    margin-right: 0;
+  }
+
+  .whatsapp-float .whatsapp-text {
+    display: none; /* Oculta el texto en móviles */
+  }
+
+  .product-card {
+    height: 320px; /* Altura ajustada para títulos largos en móviles */
+  }
+
+  .product-card .card-img-top {
+    height: 200px; /* Imágenes más pequeñas en móviles */
+  }
+
+  .product-card .img-secondary {
+    height: 200px;
+  }
+
+  .product-card .card-title {
+    font-size: 0.8rem; /* Títulos más pequeños en móviles */
+  }
+}
+
+/* Estilos para el botón Ver más */
+.ver-mas-btn {
+  background-color: #01497C;
+  border-color: #01497C;
+  color: #fff;
+}
+.ver-mas-btn:hover {
+  background-color: #01375e; /* Un tono más oscuro para el hover */
+  border-color: #01375e;
+}
+
+/* Altura uniforme para las tarjetas en Últimos Ingresos */
+#latestProducts .card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+#latestProducts .card-img-top {
+  object-fit: cover;
+  height: 200px; /* Altura fija para las imágenes */
+}
+#latestProducts .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

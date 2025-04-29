@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "title": "Crucero 30 pies",
+      "category": "cruceros",
+      "image": "/assets/img/CRUCEROS-nautica-luis-antonio-img-1.png",
+      "description": "Crucero en excelente estado, ideal para familias.",
+      "specs": "30 pies, motor 200hp",
+      "price": "Consultar"
+    },
+    {
+      "id": 2,
+      "title": "Lancha deportiva",
+      "category": "lanchas",
+      "image": "/assets/img/LANCHAS-nautica-luis-antonio-img-2.png",
+      "description": "Lancha rápida, perfecta para deportes acuáticos.",
+      "specs": "25 pies, motor 150hp",
+      "price": "Consultar"
+    },
+    {
+      "id": 3,
+      "title": "Moto acuática",
+      "category": "motos",
+      "image": "/assets/img/MOTOS-nautica-luis-antonio-img-3.png",
+      "description": "Moto acuática de alta potencia.",
+      "specs": "Motor 110hp",
+      "price": "Consultar"
+    },
+    {
+      "id": 4,
+      "title": "Accesorio náutico",
+      "category": "accesorios",
+      "image": "/assets/img/ACCESORIOS-nautica-luis-antonio-img-4.png",
+      "description": "Accesorio esencial para tu embarcación.",
+      "specs": "Varios modelos",
+      "price": "Consultar"
+    }
+  ]
