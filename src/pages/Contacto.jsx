@@ -110,9 +110,14 @@ const Contacto = () => {
                 <ul className="list-unstyled contact-info">
                   <li className="mb-3">
                     <i className="fas fa-phone-alt me-2"></i>
-                    <strong>Teléfono:</strong>{' '}
+                    <strong>Teléfonos:</strong>
+                    <br />
                     <a href="tel:+5491150297778" className="contact-link">
                       +54 9 11 5029-7778
+                    </a>
+                    <br />
+                    <a href="tel:+5491144702726" className="contact-link">
+                      +54 9 11 4470-2726
                     </a>
                   </li>
                   <li className="mb-3">
@@ -217,7 +222,7 @@ const Contacto = () => {
                       placeholder="Escribe tu mensaje aquí..."
                       value={formData.message}
                       onChange={handleChange}
-                    ></textarea>
+                    />
                   </div>
                   <button type="submit" className="btn btn-primary">
                     Enviar Mensaje

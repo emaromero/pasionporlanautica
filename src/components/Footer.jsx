@@ -80,6 +80,9 @@ const Footer = () => {
                   <i className="fas fa-phone-alt me-2"></i> +54 9 11 5029-7778
                 </li>
                 <li>
+                  <i className="fas fa-phone-alt me-2"></i> +54 9 11 4470-2726
+                </li>
+                <li>
                   <i className="fas fa-envelope me-2"></i> luisantonio.nautica1@gmail.com
                 </li>
                 <li>

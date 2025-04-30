@@ -43,7 +43,7 @@ const QuienSoy = () => {
         />
         <meta property="og:url" content="https://www.pasionporlanautica.com/quien-soy" />
         <meta property="og:type" content="website" />
-        <meta property="og:locale" content="es_AR" />
+        <meta property-implicitly-set="og:locale" content="es_AR" />
         <meta
           name="twitter:card"
           content="summary_large_image"
@@ -99,13 +99,13 @@ const QuienSoy = () => {
               <div className="col-lg-6 col-md-12">
                 <h2 className="mb-4">Te cuento quién soy</h2>
                 <p>
-                  Con más de 40 años dedicados al apasionante mundo de la náutica, mi trayectoria ha estado marcada por el aprendizaje continuo y el compromiso con ofrecer lo mejor en este sector. Desde mis primeros pasos, me he sumergido en cada aspecto de este rubro: la venta de embarcaciones, el mantenimiento de motores, la mecánica, la electricidad, y hasta los detalles de lonería y tapicería.
+                  Con más de 40 años de experiencia en el apasionante mundo de la náutica, he dedicado mi vida a perfeccionar cada área que compone este universo. Desde la construcción de embarcaciones hasta su mantenimiento integral, mi recorrido abarca un conocimiento profundo y práctico en carpintería naval, pintura, electricidad, mecánica y más.
                 </p>
                 <p>
-                  Mi misión es ayudarte a encontrar la embarcación que siempre soñaste, asegurándome de que se adapte perfectamente a tus necesidades y estilo de vida. Contar con un profesional que entiende cada rincón de este mundo no solo te garantiza una compra acertada, sino también la tranquilidad de saber que estás en buenas manos.
+                  Mi formación ha sido forjada a través del trabajo constante y la pasión por el oficio. Conozco cada rincón de una embarcación porque he trabajado en todos ellos: desde su estructura hasta los detalles más finos de tapicería o lonería. Este dominio me permite no solo garantizar un servicio técnico de calidad, sino también asesorarte con total confianza si estás buscando comprar o vender una embarcación.
                 </p>
                 <p>
-                  Elegir una embarcación no es solo una inversión; es el comienzo de nuevas aventuras. Estoy aquí para guiarte en ese camino con experiencia, honestidad y pasión por la náutica.
+                  Mi misión es ayudarte a concretar tus sueños en el agua, ya sea construyendo, manteniendo o eligiendo la embarcación perfecta para vos. Porque más que una inversión, una embarcación es un estilo de vida. Y acompañarte en ese camino es, para mí, una verdadera pasión por la náutica.
                 </p>
                 <a
                   href="https://api.whatsapp.com/send/?phone=%2B541144702726&text=Hola+Luis%2C+te+queria+consultar+por+la+embarcaci%C3%B3n%21&type=phone_number&app_absent=0"
